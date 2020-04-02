@@ -14,6 +14,8 @@ const API = {
   prdouctItem: id => `${PREFIX}/product/${id}`,
   productUppershelf: id => `${PREFIX}/product/uppershelf/${id}`,
   productLowershelf: id => `${PREFIX}/product/lowershelf/${id}`,
+  skus: `${PREFIX}/skus`,
+  skusItem: id => `${PREFIX}/skus/${id}`,
   user: `${PREFIX}/user`,
   banner: `${PREFIX}/banner`,
   bannerItem: id => `${PREFIX}/banner/${id}`

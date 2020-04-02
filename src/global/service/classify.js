@@ -9,7 +9,6 @@ const classify = {
     return request.post(API.classify, params);
   },
   update: function(id, params) {
-    console.log;
     return request.put(API.classifyItem(id), params);
   },
   delete: function(id) {

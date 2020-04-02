@@ -18,9 +18,12 @@ const OrderSingle = () =>
 const Product = () =>
   import(/* webpackChunkName: "Product" */ "@/views/Product"); //商品页
 const ProductCreate = () =>
-  import(/* webpackChunkName: "ProductCreate" */ "@/views/ProductCreate"); //商品页
+  import(/* webpackChunkName: "ProductCreate" */ "@/views/ProductCreate"); //商品新增页
 const ProductSingle = () =>
   import(/* webpackChunkName: "ProductSingle" */ "@/views/ProductSingle"); //商品详情页
+const Skus = () => import(/* webpackChunkName: "Skus" */ "@/views/Skus"); //商品skus页
+const SkusCreate = () =>
+  import(/* webpackChunkName: "SkusCreate" */ "@/views/SkusCreate"); //商品skus新增页
 const User = () => import(/* webpackChunkName: "User" */ "@/views/User"); //用户页
 const UserSingle = () =>
   import(/* webpackChunkName: "UserSingle" */ "@/views/UserSingle"); //用户查询页
@@ -245,6 +248,51 @@ export default [
             meta: {
               breadcrumb: {
                 title: "商品详情"
+              }
+            }
+          }
+        ]
+      },
+      {
+        path: "/admin/skus",
+        name: "skusRoot",
+        component: { render: h => h("router-view") },
+        redirect: { name: "skus" },
+        meta: {
+          nav: {
+            icon: "el-icon-menu",
+            title: "商品skus管理"
+          },
+          breadcrumb: {
+            title: "商品skus管理"
+          }
+        },
+        children: [
+          {
+            path: "/admin/skus",
+            component: Skus,
+            name: "skus",
+            meta: {
+              nav: {
+                icon: "el-icon-tickets",
+                title: "商品skus列表"
+              },
+              breadcrumb: {
+                title: "商品skus列表"
+              }
+            }
+          },
+          {
+            path: "/admin/skus/create",
+            component: SkusCreate,
+            name: "skuscreate",
+            meta: {
+              nav: {
+                icon: "el-icon-document-add",
+                title: "商品skus添加"
+              },
+              breadcrumb: {
+                title: "商品skus添加"
               }
             }
           }
