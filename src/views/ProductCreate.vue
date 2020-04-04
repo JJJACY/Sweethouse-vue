@@ -111,64 +111,6 @@
           <img width="100%" v-if="dialogImageUrl" :src="dialogImageUrl" />
         </el-dialog>
       </div>
-      <!-- <div class="sku">
-        <p class="title">商品 SKU</p>
-        <p class="tips">
-          展示图请选择方正图片，价格可带小数点，至少得有一个SKU并输入相应的库存喔！
-        </p>
-        <el-button type="primary" class="add-btn" @click="handleAddSku"
-          >添加</el-button
-        >
-        <el-row :gutter="20">
-          <el-col :span="6" v-for="(item, index) in sku" :key="index">
-            <el-card :body-style="{ padding: '0px' }" class="el-card">
-              <div class="top">
-                <div class="close" @click="handleDeleteSku(index)">
-                  <i class="el-icon-circle-close"></i>
-                </div>
-                <el-upload
-                  class="sku-upload"
-                  action=""
-                  :show-file-list="false"
-                  :data="{ index }"
-                  :http-request="handleSkuImage"
-                  :before-upload="beforeAvatarUpload"
-                >
-                  <img
-                    v-if="item.image_url"
-                    :src="item.image_url"
-                    class="sku-image"
-                  />
-                  <i v-else class="el-icon-plus avatar-uploader-icon little-con"></i>
-                </el-upload>
-              </div>
-              <div class="bottom">
-                <el-form
-                  class="form"
-                  :model="item"
-                  :rules="rules"
-                  ref="skuForm"
-                  label-position="left"
-                  label-width="55px"
-                >
-                  <el-form-item label="数量" prop="number" style="width:100%;">
-                    <el-input v-model="item.number" clearable></el-input>
-                  </el-form-item>
-                  <el-form-item label="价格" prop="price" style="width:100%;">
-                    <el-input v-model="item.price" clearable></el-input>
-                  </el-form-item>
-                  <el-form-item label="库存" prop="stock" style="width:100%;">
-                    <el-input v-model="item.stock" clearable></el-input>
-                  </el-form-item>
-                  <el-form-item label="已售" prop="sold" style="width:100%;">
-                    <el-input v-model="item.sold" clearable></el-input>
-                  </el-form-item>
-                </el-form>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-      </div> -->
       <div class="submit-btn">
         <el-button type="success" @click="handleSubmit()">确认添加</el-button>
       </div>
@@ -179,6 +121,7 @@
 <script>
 import qiniuService from "@/global/service/qiniu";
 import classifyService from "@/global/service/classify";
+// import productService from "@/global/service/product";
 
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
@@ -263,17 +206,6 @@ export default {
       fileList: [],
       dialogImageUrl: "",
       dialogVisible: false
-      // sku: [
-      //   {
-      //     id: false,
-      //     image_url: "",
-      //     number: "",
-      //     price: "",
-      //     stock: "",
-      //     sold:  "",
-      //     status: 0
-      //   }
-      // ],
     };
   },
   created() {
@@ -309,28 +241,6 @@ export default {
     },
     handleRemove(file, fileList) {
       this.fileList = fileList;
-    },
-    handleAddSku() {
-      let sku = {
-        id: false,
-        image_url: "",
-        number: "",
-        price: "",
-        stock: "",
-        sold: "",
-        status: 0
-      };
-      this.sku.push(sku);
-      console.log(sku, this.sku, 123);
-    },
-    handleDeleteSku(index) {
-      console.log(index);
-    },
-    handleSkuImage(files) {
-      let index = files.data.index;
-      qiniuService.upload(files.file).then(res => {
-        this.sku[index].image_url = res;
-      });
     },
     handleSubmit() {
       console.log(123);

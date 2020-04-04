@@ -24,12 +24,15 @@
       <el-row :gutter="20">
         <el-col :span="4" v-for="item in goodsData" :key="item.id">
           <el-card :body-style="{ padding: '8px' }" class="el-card">
-            <el-image :src="item.image" class="image" fit="contain"> </el-image>
+            <el-image :src="item.image_url" class="image" fit="contain">
+            </el-image>
             <div class="bottom">
-              <div class="item name">{{ item.name }}</div>
-              <div class="item desc">{{ item.descript }}</div>
               <div class="item category">分类：{{ item.classify_name }}</div>
+              <div class="item name">名称：{{ item.name }}</div>
+              <div class="item desc">商品描述：{{ item.descript }}</div>
+              <div class="item stock">库存：{{ item.stock }}</div>
               <div class="item sold">已售：{{ item.sold }}</div>
+              <!-- <div class="item ">id: {{item.skus_id }}</div> -->
               <div class="item price">
                 <div class="item-price">¥ {{ item.price }}</div>
                 <div class="item-price-discount" v-if="item.price_discount">
@@ -113,6 +116,7 @@ export default {
       this.$router.push({ name: "productsingle", params: { id } });
     },
     hanleLowershelf(id) {
+      console.log(id);
       productService.lowershelf(id).then(res => {
         if (res.code === 200) {
           this.$message({

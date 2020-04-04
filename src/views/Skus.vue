@@ -26,14 +26,21 @@
                 label-position="left"
                 label-width="55px"
               >
+                <el-form-item
+                  label="商ID"
+                  prop="product_id"
+                  style="width:100%;"
+                >
+                  <el-input v-model="item.product_id" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="图片" prop="image_url" style="width:100%;">
+                  <el-input v-model="item.image_url" clearable></el-input>
+                </el-form-item>
                 <el-form-item label="数量" prop="number" style="width:100%;">
                   <el-input v-model="item.number" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="价格" prop="price" style="width:100%;">
                   <el-input v-model="item.price" clearable></el-input>
-                </el-form-item>
-                <el-form-item label="图片" prop="image_url" style="width:100%;">
-                  <el-input v-model="item.image_url" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="库存" prop="stock" style="width:100%;">
                   <el-input v-model="item.stock" clearable></el-input>
@@ -45,7 +52,7 @@
                   <el-input v-model="item.status" clearable></el-input>
                 </el-form-item>
                 <div class="submit-btn">
-                  <el-button class="changedetail" @click="handlechange(item)"
+                  <el-button type="success" @click="handlechange(item)"
                     >修改</el-button
                   >
                 </div>
@@ -81,6 +88,7 @@ export default {
       sku: [
         {
           id: "",
+          product_id: "",
           image_url: "",
           number: "",
           price: "",
@@ -90,6 +98,9 @@ export default {
         }
       ],
       rules: {
+        product_id: [
+          { required: true, message: "请输入商品id", trigger: "blur" }
+        ],
         price: [{ required: true, message: "请输入金额", trigger: "blur" }],
         name: [{ required: true, message: "请输入名称", trigger: "blur" }],
         number: [{ required: true, message: "请输入数量", trigger: "blur" }],
@@ -141,7 +152,7 @@ export default {
                 type: "success",
                 message: res.message
               });
-              this.getData();
+              this.onLoad();
             } else {
               this.$message.error(res.message);
             }
@@ -155,7 +166,9 @@ export default {
       });
     },
     handlechange(row) {
+      console.log(123);
       let params = {
+        product_id: row.product_id,
         price: row.price,
         stock: row.stock,
         number: row.number,
@@ -163,9 +176,7 @@ export default {
         status: row.status,
         sold: row.sold
       };
-      console.log(params, row, 123);
       let id = row.id;
-      console.log(id);
       skusService.update(id, params).then(res => {
         if (res.code === 200) {
           this.$message({
