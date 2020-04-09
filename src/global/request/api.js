@@ -8,8 +8,8 @@ const API = {
   manageItem: id => `${PREFIX}/manage/${id}`,
   classify: `${PREFIX}/classify`,
   classifyItem: id => `${PREFIX}/classify/${id}`,
-  order: `${PREFIX}/manage`,
-  orderItem: id => `${PREFIX}/manage/${id}`,
+  order: `${PREFIX}/order`,
+  orderItem: id => `${PREFIX}/order/${id}`,
   product: `${PREFIX}/product`,
   prdouctItem: id => `${PREFIX}/product/${id}`,
   productUppershelf: id => `${PREFIX}/product/uppershelf/${id}`,
@@ -17,6 +17,7 @@ const API = {
   skus: `${PREFIX}/skus`,
   skusItem: id => `${PREFIX}/skus/${id}`,
   user: `${PREFIX}/user`,
+  userItem: id => `${PREFIX}/user/${id}`,
   banner: `${PREFIX}/banner`,
   bannerItem: id => `${PREFIX}/banner/${id}`
 };

@@ -2,8 +2,8 @@ import request from "@/global/request/axios";
 import API from "@/global/request/api";
 
 const product = {
-  all: function() {
-    return request.get(API.product);
+  all: function(params) {
+    return request.get(API.product, params);
   },
   single: function(id) {
     return request.get(API.prdouctItem(id));

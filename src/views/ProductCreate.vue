@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <div class="header">
-      <div class="header-title">商品添加</div>
+      <div class="header-title">商品管理</div>
       <el-button type="success" @click="handleback">🔙</el-button>
     </div>
     <div class="body">
       <div class="block">
         <div class="tips">
-          0000000000000000000
+          请选添加正方形图片为展示图
         </div>
         <div class="show-image">
           <el-upload
@@ -51,9 +51,9 @@
             <el-form-item label="名称" prop="name" style="width:400px;">
               <el-input v-model="ruleForm.name" clearable></el-input>
             </el-form-item>
-            <el-form-item label="描述" prop="description" style="width:400px;">
+            <el-form-item label="描述" prop="descript" style="width:400px;">
               <el-input
-                v-model="ruleForm.description"
+                v-model="ruleForm.descript"
                 :rows="4"
                 type="textarea"
                 clearable
@@ -83,7 +83,7 @@
             <p class="rich-title">商品详情 <span>tips: 图片不能超过2M</span></p>
             <quill-editor
               class="quill-editor"
-              v-model="content"
+              v-model="quill"
               ref="myQuillEditor"
               :options="editorOption"
               style="height:300px;"
@@ -121,7 +121,7 @@
 <script>
 import qiniuService from "@/global/service/qiniu";
 import classifyService from "@/global/service/classify";
-// import productService from "@/global/service/product";
+import productService from "@/global/service/product";
 
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
@@ -179,15 +179,13 @@ export default {
       ruleForm: {
         price_discount: "",
         name: "",
-        description: "",
+        descript: "",
         classify_id: ""
       },
       rules: {
         price: [{ required: true, message: "请输入金额", trigger: "blur" }],
         name: [{ required: true, message: "请输入名称", trigger: "blur" }],
-        description: [
-          { required: true, message: "请输入描述", trigger: "blur" }
-        ],
+        descript: [{ required: true, message: "请输入描述", trigger: "blur" }],
         classify_id: [
           { required: true, message: "请选择分类", trigger: "change" }
         ],
@@ -202,7 +200,7 @@ export default {
           }
         }
       },
-      content: "",
+      quill: "",
       fileList: [],
       dialogImageUrl: "",
       dialogVisible: false
@@ -243,7 +241,38 @@ export default {
       this.fileList = fileList;
     },
     handleSubmit() {
-      console.log(123);
+      let params = {
+        image_Url: this.image_Url,
+        price_discount: this.ruleForm.price_discount,
+        name: this.ruleForm.name,
+        descript: this.ruleForm.descript,
+        classify_id: this.ruleForm.classify_id,
+        quill: this.quill,
+        banner: this.fileList
+      };
+      if (
+        !this.image_Url ||
+        !this.ruleForm.price_discount ||
+        !this.quill ||
+        !this.ruleForm.classify_id ||
+        this.fileList.length < 1 ||
+        !this.ruleForm.name ||
+        !this.ruleForm.descript
+      ) {
+        this.$message("输入错误,请重试");
+        return;
+      }
+      productService.insert(params).then(res => {
+        console.log(res);
+        if (res.code === 200) {
+          this.$message({
+            message: res.message,
+            type: "success"
+          });
+        } else {
+          this.$message(res.message);
+        }
+      });
     }
   },
   components: {

@@ -14,7 +14,7 @@
         >
           <el-option
             v-for="item in classify"
-            :key="item.id"
+            :key="item.id + Math.random()"
             :label="item.name"
             :value="item.id"
           >
@@ -22,7 +22,11 @@
         </el-select>
       </div>
       <el-row :gutter="20">
-        <el-col :span="4" v-for="item in goodsData" :key="item.id">
+        <el-col
+          :span="4"
+          v-for="item in goodsData"
+          :key="item.id + Math.random()"
+        >
           <el-card :body-style="{ padding: '8px' }" class="el-card">
             <el-image :src="item.image_url" class="image" fit="contain">
             </el-image>
@@ -61,7 +65,6 @@
         class="pagination"
         layout="prev, pager, next"
         :page-size="pagination.pageSize"
-        :pager-count="7"
         :current-page.sync="pagination.nowPage"
         :total="pagination.total"
         @current-change="getData"
@@ -80,7 +83,7 @@ export default {
     return {
       goodsData: [],
       pagination: {
-        pageSize: 12,
+        pageSize: 8,
         total: 0,
         nowPage: 1
       },
@@ -101,8 +104,12 @@ export default {
         nowPage: this.pagination.nowPage,
         classify_id: this.classify_select
       };
+      console.log(params);
       productService.all(params).then(res => {
+        console.log(123, res);
         this.goodsData = res.data;
+        this.pagination.total = res.total;
+        console.log(this.pagination);
       });
     },
     handlecreate() {

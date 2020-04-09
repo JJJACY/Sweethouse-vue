@@ -125,6 +125,7 @@ export default {
         return;
       }
       let params = {
+        product_id: this.skuFrom.product_id,
         image_url: this.skuFrom.image_url,
         number: this.skuFrom.number,
         price: this.skuFrom.price,

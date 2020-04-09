@@ -81,10 +81,11 @@ export default {
   data() {
     return {
       pagination: {
-        pageSize: 10,
+        pageSize: 4,
         total: 0,
         nowPage: 1
       },
+      product_id: "",
       sku: [
         {
           id: "",
@@ -121,9 +122,11 @@ export default {
       let params = {
         pageSize: this.pagination.pageSize,
         nowPage: this.pagination.nowPage,
-        price: this.sku.price,
-        sold: this.sku.sold
+        product_id: this.sku.product_id
+        // price: this.sku.price,
+        // sold: this.sku.sold
       };
+      console.log(params);
       skusService.all(params).then(res => {
         this.sku = res.data;
         this.pagination.total = res.total;

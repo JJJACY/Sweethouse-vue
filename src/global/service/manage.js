@@ -15,7 +15,7 @@ const manage = {
     return request.put(API.manageItem(id), params);
   },
   delete: function(id) {
-    return request.get(API.manageItem(id));
+    return request.delete(API.manageItem(id));
   }
 };
 export default manage;

@@ -39,7 +39,6 @@ export default {
       }
       authLoginService.login({ phone, password }).then(res => {
         if (res.code === 0) {
-          console.log(res);
           return this.$message.error(res.message);
         }
         DataStore.setToken(res.data.token);
